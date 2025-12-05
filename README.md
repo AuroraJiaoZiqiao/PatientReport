@@ -1,7 +1,7 @@
-# BRIDGE21 Report Pipeline (Custom Wrapper)
+# Report Generation Custom Pipeline 
 
-## What this repo is for
-Generate participant-facing PDF reports. It can run on real study data (pulling MRI from XNAT and processing accelerometer files) or on the bundled toy example.
+## Overview
+This folder holds our custom BRIDGE21 reporting pipeline. Adapted from https://github.com/bhelsel/BRIDGE21.git
 
 ## Key scripts (what/why)
 - `R/generate_report_custom.R`: Orchestrator. Sources helpers, chooses sections, copies QMD project, writes `_variables.yaml`, triggers MRI Shiny apps (slice picker + orientation), then renders the PDF.
