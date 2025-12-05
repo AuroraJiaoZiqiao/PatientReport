@@ -86,13 +86,10 @@ generate_report_custom <- function(
     stop(sprintf("We did not find patient ID %s in the dataset", id))
   }
 
-  # Directory setup
   persondir <- file.path(outputdir, id)
   if (!dir.exists(persondir)) dir.create(persondir, recursive = TRUE)
   imagedir <- file.path(persondir, "imaging")
   if (!dir.exists(imagedir)) dir.create(imagedir, recursive = TRUE)
-
-  # Imaging workflow
   if (example_report) {
     mriFiles <- system.file(
       c("images/axialImage.png", "images/sagittalImage.png"),
@@ -101,7 +98,7 @@ generate_report_custom <- function(
     if (any(mriFiles == "")) {
       mriFiles <- file.path(
         getwd(),
-        c("output_images/10001_axial.png", "output_images/10001_sagittal.png")
+        c("example_mri/placeholder_axial.png", "example_mri/placeholder_sagittal.png")
       )
     }
     if (all(file.exists(mriFiles))) {
@@ -201,8 +198,6 @@ generate_report_custom <- function(
     ),
     file = file.path(temp_render_dir, "_variables.yaml")
   )
-
-  # Render
   pdffile <- sprintf("%s_Report.pdf", id)
   old_wd <- getwd()
   setwd(temp_render_dir)
@@ -235,8 +230,6 @@ generate_report_custom <- function(
       stop("Quarto CLI render failed with status ", status)
     }
   }
-
-  # Final file moves
   final_report_path <- file.path(persondir, pdffile)
   invisible(file.copy(
     from = file.path(temp_render_dir, pdffile),
